@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<windows.h>
+
+int main()
+{
+	
+	printf("\n\t\t*******************WELCOME TO THE PROCESS SCHEDULER*******************");
+	int num;
+	printf("\nEnter Number of process to be scheduled : ");
+	scanf("%d",&num);
+	int arrival_time[num],burst_time[num],rem_burst[num],time=0,remain,quantum,flag=0,TurnAround[num],Waiting[num];
+	float average_wait=0,average_tat=0;
+	remain=num;
+	int i,j,pid[num];
+	for(i=0;i<num;i++)
+	{
+		printf("\n\nEnter Arrival Time of Process[%d] : ",i+1);
+		scanf("%d",&arrival_time[i]);
+		printf("\nEnter Burst Time of Process[%d] : ",i+1);
+		scanf("%d",&burst_time[i]);
+		rem_burst[i]=burst_time[i];
+		pid[i]=i+1;
+	}
+	
+	printf("\nEnter Time Quantum : ");
+	scanf("%d",&quantum);
+	
+	for(i=0;i<num;i++)
+	{
+		for(j=i+1;j<num;j++)
+		{
+			if(arrival_time[i]>arrival_time[j])
+			{
+				int swap_a=arrival_time[i];
+				arrival_time[i]=arrival_time[j];
+				arrival_time[j]=swap_a;
+				int swap_b=burst_time[i];
+				burst_time[i]=burst_time[j];
+				burst_time[j]=swap_b;
+				int swap_p=pid[i];
+				pid[i]=pid[j];
+				pid[j]=swap_p;
+			}
+		}
+			rem_burst[i]=burst_time[i];
+	}
