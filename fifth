@@ -1,0 +1,77 @@
+printf("\n\n\n   ******* GANTT CHART *******");
+		printf("\n***********************************");
+		printf("\nProcess Name\t| Preemption Time");
+		printf("\n***********************************");
+
+	for(completion=0,i=0;remaining!=0;)
+	{
+		if(rem_burst[i]<=tq && rem_burst[i]>0)
+		{
+			if(rem_burst[i]==tq)
+			{
+				completion+=tq;
+				printf("\nP%d\t\t %d ",process[i],completion);
+				rem_burst[i]=0;
+				count=1;
+			}
+
+			else if(rem_burst[i]<tq)
+			{
+				completion+=rem_burst[i];
+				printf("\nP%d\t\t %d ",process[i],completion);
+				rem_burst[i]=0;
+				count=1;
+			}
+		}
+
+		else if(rem_burst[i]>0)
+		{
+			rem_burst[i]=rem_burst[i]-tq;
+			completion+=tq;
+			printf("\nP%d\t\t %d ",process[i],completion);
+		}
+
+		if(rem_burst[i]==0 && count==1)
+		{
+			TurnAround[i]=completion-time_of_arrival[i];
+			Waiting[i]=TurnAround[i]-time_of_burst[i];
+			if(Waiting[i]<0)
+				Waiting[i]=0;
+			avgWT=avgWT+Waiting[i];
+			avgTAT=avgTAT+TurnAround[i];
+			remaining--;
+			count=0;
+
+		}
+
+		if(i==pro-1)
+			i=0;
+
+		else if(time_of_arrival[i+1]<completion)
+			i++;
+
+		else
+			i=0;
+	}
+	printf("\n\n***********************************");
+	
+	printf("\n\n\n\n\t\t-----------------------------------------------------------------------------");
+	printf("\n\t\t|\tArrival Time\tBurst Time\tTurnAround Time\t\tWaiting Time|");
+	printf("\n\t\t-----------------------------------------------------------------------------");
+	
+	for(i=0;i<pro;i++)
+	{
+		printf("\n\t\t| P[%d]\t\t%d\t\t%d\t\t%d\t\t\t%d  | ",process[i],time_of_arrival[i],time_of_burst[i],TurnAround[i],Waiting[i]);
+		printf("\n\t\t-----------------------------------------------------------------------------");
+
+	}
+
+
+
+	avgWT=avgWT/pro;
+	avgTAT=avgTAT/pro;
+	printf("\n\nAverage TurnAround Time = %.1f",avgTAT);
+	printf("\nAverage Waiting Time = %.1f",avgWT);
+
+
+}
