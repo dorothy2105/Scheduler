@@ -1,0 +1,23 @@
+sleep(2);
+	system("CLS");
+	printf("\n\n\n\n\t\t-----------------------------------------------------------------------------");
+	printf("\n\t\t|\tArrival Time\tBurst Time\tTurnAround Time\t\tWaiting Time|");
+	printf("\n\t\t-----------------------------------------------------------------------------");
+	
+	for(i=0;i<num;i++)
+	{
+		printf("\n\t\t| P[%d]\t\t%d\t\t%d\t\t%d\t\t\t%d  | ",pid[i],arrival_time[i],burst_time[i],TurnAround[i],Waiting[i]);
+		printf("\n\t\t-----------------------------------------------------------------------------");
+
+	}
+
+
+
+	average_wait=average_wait/num;
+	average_tat=average_tat/num;
+	printf("\n\n\tAverage TurnAround Time = %.1f",average_tat);
+	printf("\n\tAverage Waiting Time = %.1f",average_wait);
+
+
+}
+
