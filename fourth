@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<windows.h>
+
+int main()
+{
+	
+	printf("\n1.BELOW IS A ROUND ROBIN PROCESS SCHEDULER\n2.ENTER FULL SCREEN BEFORE START(RECOMMENDED)");
+	int pro;
+	printf("\n\nEnter total process to be scheduled : ");
+	scanf("%d",&pro);
+	int time_of_arrival[pro],time_of_burst[pro],rem[pro],completion=0;
+	int tq,remaining,count=0,TurnAround[pro],Waiting[pro];
+	double avgWT=0,avgTAT=0;
+	remaining=pro;
+	int i,j,process[pro];
+	for(i=0;i<pro;i++)
+	{
+		printf("\n\nEnter Arrival Time of Process[%d] : ",i+1);
+		scanf("%d",&time_of_arrival[i]);
+		printf("\nEnter Burst Time of Process[%d] : ",i+1);
+		scanf("%d",&time_of_burst[i]);
+		rem_burst[i]=time_of_burst[i];
+		process[i]=i+1;
+	}
+	
+	printf("\nEnter Time Quantum : ");
+	scanf("%d",&tq);
+	
+	for(i=0;i<pro;i++)
+	{
+		for(j=i+1;j<pro;j++)
+		{
+			if(time_of_arrival[i]>time_of_arrival[j])
+			{
+				int temp1=time_of_arrival[i];
+				time_of_arrival[i]=time_of_arrival[j];
+				time_of_arrival[j]=temp1;
+				int temp2=time_of_burst[i];
+				time_of_burst[i]=time_of_burst[j];
+				time_of_burst[j]=temp2;
+				int temp3=process[i];
+				process[i]=process[j];
+				process[j]=temp3;
+			}
+		}
+			rem[i]=time_of_burst[i];
+	}
+	
